@@ -1,7 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{7151FF76-800D-6A9B-74BC-A00F7DA05DEB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameAssembly", "GameAssembly.csproj", "{B113CE7B-9273-8C18-D459-C6DF97A3903D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests.csproj", "{384F1CF3-2C87-E545-B9D9-54A32F59C223}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +11,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7151FF76-800D-6A9B-74BC-A00F7DA05DEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7151FF76-800D-6A9B-74BC-A00F7DA05DEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7151FF76-800D-6A9B-74BC-A00F7DA05DEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7151FF76-800D-6A9B-74BC-A00F7DA05DEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B113CE7B-9273-8C18-D459-C6DF97A3903D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B113CE7B-9273-8C18-D459-C6DF97A3903D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B113CE7B-9273-8C18-D459-C6DF97A3903D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B113CE7B-9273-8C18-D459-C6DF97A3903D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{384F1CF3-2C87-E545-B9D9-54A32F59C223}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{384F1CF3-2C87-E545-B9D9-54A32F59C223}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{384F1CF3-2C87-E545-B9D9-54A32F59C223}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{384F1CF3-2C87-E545-B9D9-54A32F59C223}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

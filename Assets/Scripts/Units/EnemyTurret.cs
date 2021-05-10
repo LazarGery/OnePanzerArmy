@@ -41,7 +41,8 @@ public class EnemyTurret : MonoBehaviour
     Vector3 _Target;
     bool _isReloaded;
     float _ReloadingTimer;
-    bool _isAlarmed;
+
+    public FSMState State { get; private set; }
 
     // Start is called before the first frame update
     void Start()
@@ -61,20 +62,40 @@ public class EnemyTurret : MonoBehaviour
                 Shoot();
             }
             _Target = _Player.position;
-            _isAlarmed = true;
+
+            if (State == FSMState.Idle || State == FSMState.Alarmed)
+            {
+                State = FSMState.Fight;
+                if (_Unit.State == MovementState.Moving)
+                {
+                    _Unit.StopMovements(this);
+                }
+            }
         }
-        else if (_isAlarmed)
+        else if (State != FSMState.Idle && RotateTurret(_Target) && _Unit.State != MovementState.Moving)
         {
-            RotateTurret(_Target);
+            _Unit.MovePosition(_Target, this);
+            State = FSMState.Alarmed;
         }
     }
 
-    public void GotHit(Vector3 Position, Enemy Unit)
+    public void GotHit(Vector3 Position, Enemy Sender)
     {
-        if (_Unit == Unit)
+        if (Sender == _Unit)
         {
-            _Target = Position;
-            _isAlarmed = true;
+            if (State == FSMState.Idle)
+            {
+                _Target = Position;
+                State = FSMState.Alarmed;
+            }
+            else if (State == FSMState.Alarmed)
+            {
+                _Target = Position;
+                if (_Unit.State == MovementState.Moving)
+                {
+                    _Unit.StopMovements(this);
+                }
+            }
         }
     }
 

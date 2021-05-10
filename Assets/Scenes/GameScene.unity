@@ -6046,6 +6046,8 @@ MonoBehaviour:
   Bullet: {fileID: 8898464254570903359, guid: ff5bae499ca0eba4d9ebc93aa2efd5e2, type: 3}
   BulletPoolParent: {fileID: 2103467327}
   BulletPoolMaxLimit: 20
+  BorderTilemap: {fileID: 2058806511}
+  BuildingsTilemap: {fileID: 1125268670}
 --- !u!4 &1956436807 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7926665593263123563, guid: 916bee98b17fca645996dca1cbd7eafe,
@@ -10046,6 +10048,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 488732558}
     m_Modifications:
+    - target: {fileID: 7926665593263123556, guid: 916bee98b17fca645996dca1cbd7eafe,
+        type: 3}
+      propertyPath: Speed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7926665593263123556, guid: 916bee98b17fca645996dca1cbd7eafe,
+        type: 3}
+      propertyPath: TurnSpeed
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 7926665593263123556, guid: 916bee98b17fca645996dca1cbd7eafe,
+        type: 3}
+      propertyPath: FieldOffsetX
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7926665593263123556, guid: 916bee98b17fca645996dca1cbd7eafe,
+        type: 3}
+      propertyPath: FieldOffsetY
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7926665593263123562, guid: 916bee98b17fca645996dca1cbd7eafe,
         type: 3}
       propertyPath: m_Name

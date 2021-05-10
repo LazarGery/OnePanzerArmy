@@ -283,6 +283,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HitPoints: 3
+  Speed: 2
+  TurnSpeed: 90
+  FieldOffsetX: 0.5
+  FieldOffsetY: 0.5
 --- !u!1 &7926665594228234101
 GameObject:
   m_ObjectHideFlags: 0
