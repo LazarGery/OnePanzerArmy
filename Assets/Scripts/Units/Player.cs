@@ -20,13 +20,18 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float PushBackSpeedRatioOnCollisionWithWalls;
 
+    [SerializeField]
+    private float HitPoints;
+
     float _Speed;
     bool _isSlowing;
+    float _HitPoints;
 
     // Use this for initialization
     void Start()
     {
         _Speed = 0;
+        _HitPoints = HitPoints;
     }
 
     // Update is called once per frame
@@ -66,7 +71,11 @@ public class Player : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (_isSlowing)
+        if (_HitPoints <= 0)
+        {
+            Destroy(gameObject);
+        }
+        else if (_isSlowing)
         {
             if (_Speed > 0)
             {
@@ -79,6 +88,11 @@ public class Player : MonoBehaviour
                 if (_Speed > 0) _Speed = 0;
             }
         }
+    }
+
+    public void ApplyDamage(float Damage)
+    {
+        _HitPoints -= Damage;
     }
 
     //Adds a pushback effect when colliding with Buildings or the Border of the map

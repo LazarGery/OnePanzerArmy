@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Border
   - Buildings
+  - Enemy
+  - EnemyTurret
+  - PlayerTurret
+  - Projectile
   layers:
   - Default
   - TransparentFX
@@ -17,7 +21,7 @@ TagManager:
   - 
   - Border
   - Buildings
-  - 
+  - Units
   - 
   - 
   - 
