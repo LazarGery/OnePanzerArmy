@@ -39,15 +39,15 @@ public class Player : MonoBehaviour
     {
         _isSlowing = true;
 
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetAxisRaw("Horizontal") == -1)
         {
             transform.Rotate(Vector3.forward * TurnSpeed * Time.fixedDeltaTime);
         }
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetAxisRaw("Horizontal") == 1)
         {
             transform.Rotate(Vector3.back * TurnSpeed * Time.fixedDeltaTime);
         }
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetAxisRaw("Vertical") == 1)
         {
             if (_Speed < MaxForwardSpeed)
             {
@@ -56,7 +56,7 @@ public class Player : MonoBehaviour
             }
             _isSlowing = false;
         }
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetAxisRaw("Vertical") == -1)
         {
             if (_Speed > -1 * MaxBackwardSpeed)
             {

@@ -15,10 +15,22 @@ public class CameraFollow : MonoBehaviour
     [SerializeField]
     private float MinimumZoom;
 
+    [SerializeField]
+    private float MoveSpeed;
+
+    [SerializeField]
+    private float TapTime;
+
     Transform _Target;
     Camera _Camera;
     float _Min_X, _Max_X, _Min_Y, _Max_Y;
     Vector3 _MinTile, _MaxTile;
+    
+    Vector2Int _ScreenSize;
+    float _OffsetX, _OffsetY;
+    float _OffsetX_Limit, _OffsetY_Limit;
+    float _TapTimer;
+    bool _isCameraSlideButtonPressed;
 
     // Use this for initialization
     void Start()
@@ -37,12 +49,14 @@ public class CameraFollow : MonoBehaviour
         _MaxTile = new Vector3(_Max_X, _Max_Y, 0);
         
         SetLimits();
+
+        _ScreenSize = new Vector2Int(Screen.width, Screen.height);
     }
 
     // Update is called once per frame
     private void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.Q) && _Camera.orthographicSize > MinimumZoom)
+        if (Input.GetButton("ZoomIn") && _Camera.orthographicSize > MinimumZoom)
         {
             float size = _Camera.orthographicSize;
             size -= Time.fixedDeltaTime * ZoomSpeed;
@@ -56,7 +70,7 @@ public class CameraFollow : MonoBehaviour
             }
             SetLimits();
         }
-        if (Input.GetKey(KeyCode.E) && _Camera.orthographicSize < MaximumZoom)
+        if (Input.GetButton("ZoomOut") && _Camera.orthographicSize < MaximumZoom)
         {
             float size = _Camera.orthographicSize;
             size += Time.fixedDeltaTime * ZoomSpeed;
@@ -70,8 +84,49 @@ public class CameraFollow : MonoBehaviour
             }
             SetLimits();
         }
+        if (Input.GetButton("CameraSlide"))
+        {
+            Vector3 mousePosition = Input.mousePosition;
+            if (mousePosition.y > _ScreenSize.y * 0.95f && _OffsetY < _OffsetY_Limit)
+            {
+                _OffsetY += Time.deltaTime * MoveSpeed;
+            }
+            else if (mousePosition.y < _ScreenSize.y * 0.05f && _OffsetY > _OffsetY_Limit * -1)
+            {
+                _OffsetY -= Time.deltaTime * MoveSpeed;
+            }
+
+            if (mousePosition.x > _ScreenSize.x * 0.95f && _OffsetX < _OffsetX_Limit)
+            {
+                _OffsetX += Time.deltaTime * MoveSpeed;
+            }
+            else if (mousePosition.x < _ScreenSize.x * 0.05f && _OffsetX > _OffsetX_Limit * -1)
+            {
+                _OffsetX -= Time.deltaTime * MoveSpeed;
+            }
+
+            if (!_isCameraSlideButtonPressed)
+            {
+                _isCameraSlideButtonPressed = true;
+            }
+            _TapTimer += Time.deltaTime;
+        }
     }
-    
+
+    private void Update()
+    {
+        if (_isCameraSlideButtonPressed && Input.GetButtonUp("CameraSlide"))
+        {
+            _isCameraSlideButtonPressed = false;
+            if (_TapTimer < TapTime)
+            {
+                _OffsetX = 0;
+                _OffsetY = 0;
+            }
+            _TapTimer = 0.0f;
+        }
+    }
+
     void SetLimits()
     {
         float height = 2f * _Camera.orthographicSize;
@@ -79,16 +134,36 @@ public class CameraFollow : MonoBehaviour
 
         _Min_X = _MinTile.x + width / 2;
         _Max_X = _MaxTile.x - width / 2;
-
         _Min_Y = _MinTile.y + height / 2;
         _Max_Y = _MaxTile.y - height / 2;
+
+        _OffsetX_Limit = _Camera.orthographicSize * _Camera.aspect - 1;
+        _OffsetY_Limit = _Camera.orthographicSize - 1;
+
+        if (_OffsetX > _OffsetX_Limit)
+        {
+            _OffsetX = _OffsetX_Limit;
+        }
+        else if (_OffsetX < _OffsetX_Limit * -1)
+        {
+            _OffsetX = _OffsetX_Limit * -1;
+        }
+
+        if (_OffsetY > _OffsetY_Limit)
+        {
+            _OffsetY = _OffsetY_Limit;
+        }
+        else if (_OffsetY < _OffsetY_Limit * -1)
+        {
+            _OffsetY = _OffsetY_Limit * -1;
+        }
     }
 
     void LateUpdate()
     {
         if (_Target != null)
         {
-            transform.position = new Vector3(Mathf.Clamp(_Target.position.x, _Min_X, _Max_X), Mathf.Clamp(_Target.position.y, _Min_Y, _Max_Y), -10);
+            transform.position = new Vector3(Mathf.Clamp(_Target.position.x + _OffsetX, _Min_X, _Max_X), Mathf.Clamp(_Target.position.y + _OffsetY, _Min_Y, _Max_Y), -10);
         }
     }
 }

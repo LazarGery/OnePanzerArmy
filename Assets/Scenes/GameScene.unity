@@ -242,6 +242,8 @@ MonoBehaviour:
   ZoomSpeed: 3
   MaximumZoom: 9
   MinimumZoom: 2
+  MoveSpeed: 5
+  TapTime: 0.2
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0

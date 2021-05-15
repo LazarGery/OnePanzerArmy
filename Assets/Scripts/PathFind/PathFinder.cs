@@ -32,6 +32,18 @@ class PathFinder: IPathFind
                     }
                 }
             }
+
+            for (int x = 0; x < _Nodes.GetLength(0); x++)
+            {
+                for (int y = 0; y < _Nodes.GetLength(1); y++)
+                {
+                    if (_Nodes[x, y] != null)
+                    {
+                        _Nodes[x, y].SetNeighbours(GetNeighbours(_Nodes[x, y]));
+                    }
+                }
+            }
+
             _OpenSet = new Heap<Node>(count);
             _ClosedSet = new Dictionary<Vector2Int, Node>();
         }
@@ -76,8 +88,7 @@ class PathFinder: IPathFind
         // Until the field representing the TargetPosition has been found or the algorithm ran out of possibilities
         while (currentNode != null && currentNode != targetNode)
         {
-            List<Node> neighbours = GetNeighbours(currentNode);
-            foreach (Node actualNode in neighbours)
+            foreach (Node actualNode in currentNode.Neighbours)
             {
                 int cost = currentNode.GCost + GetDistance(currentNode.Position, actualNode.Position);
                 if (!_OpenSet.Contains(actualNode) && !_ClosedSet.ContainsKey(actualNode.Position))

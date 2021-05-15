@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 class Node : IHeapItem<Node>
 {
@@ -7,10 +8,12 @@ class Node : IHeapItem<Node>
     public int GCost { get; set; }
     public int HCost { get; set; }
     public Node Parent { get; set; }
+    public List<Node> Neighbours { get; private set; }
 
     public Node(int X, int Y)
     {
         Position = new Vector2Int(X, Y);
+        Neighbours = new List<Node>();
     }
 
     public int FCost
@@ -26,5 +29,13 @@ class Node : IHeapItem<Node>
             compare = HCost.CompareTo(Other.HCost);
         }
         return -compare;
+    }
+
+    public void SetNeighbours(List<Node> NeighboursList)
+    {
+        if (NeighboursList != null)
+        {
+            Neighbours = NeighboursList;
+        }
     }
 }
