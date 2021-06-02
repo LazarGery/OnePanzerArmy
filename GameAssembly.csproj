@@ -64,6 +64,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Cover\CoverPoint.cs" />
+    <Compile Include="Assets\Scripts\Cover\Covers.cs" />
+    <Compile Include="Assets\Scripts\Cover\ICover.cs" />
     <Compile Include="Assets\Scripts\GameControl\CameraFollow.cs" />
     <Compile Include="Assets\Scripts\GameControl\Director.cs" />
     <Compile Include="Assets\Scripts\GameControl\GameController.cs" />

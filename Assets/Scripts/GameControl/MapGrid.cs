@@ -6,8 +6,12 @@ public class MapGrid
     public bool[,] Tiles { get; private set; }
     public int Offset_X { get; private set; }
     public int Offset_Y { get; private set; }
+    public LayerMask Buildings_Layer { get; private set; }
+    public LayerMask Units_Layer { get; private set; }
+    public float Field_Offset_X { get; private set; }
+    public float Field_Offset_Y { get; private set; }
 
-    public MapGrid(Tilemap BorderTilemap, Tilemap BuildingsTilemap)
+    public MapGrid(Tilemap BorderTilemap, Tilemap BuildingsTilemap, LayerMask BuildingsLayer, LayerMask UnitsLayer, float FieldOffsetX, float FieldOffsetY)
     {
         Vector3 min_tile = BorderTilemap.CellToWorld(BorderTilemap.cellBounds.min);
         Vector3 size = BorderTilemap.size;
@@ -23,5 +27,10 @@ public class MapGrid
                 Tiles[x, y] = (tile == null);
             }
         }
+
+        Buildings_Layer = BuildingsLayer;
+        Units_Layer = UnitsLayer;
+        Field_Offset_X = FieldOffsetX;
+        Field_Offset_Y = FieldOffsetY;
     }
 }

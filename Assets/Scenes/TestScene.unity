@@ -155,6 +155,16 @@ MonoBehaviour:
   BulletPoolMaxLimit: 20
   BorderTilemap: {fileID: 1751592350}
   BuildingsTilemap: {fileID: 1860081924}
+  BuildingsLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  UnitsLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  FieldOffsetX: 0.5
+  FieldOffsetY: 0.5
+  Cover_SafeDistance: 4
+  Cover_MaxDistance: 20
 --- !u!4 &345064581
 Transform:
   m_ObjectHideFlags: 0

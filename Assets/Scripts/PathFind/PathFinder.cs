@@ -10,7 +10,7 @@ class PathFinder: IPathFind
 
     public PathFinder(MapGrid Map)
     {
-        if (Map.Tiles != default(bool[,]))
+        if (Map != null && Map.Tiles != default(bool[,]))
         {
             _Nodes = new Node[Map.Tiles.GetLength(0), Map.Tiles.GetLength(1)];
             _OffsetX = Map.Offset_X;

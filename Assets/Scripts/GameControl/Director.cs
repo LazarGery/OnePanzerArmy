@@ -5,13 +5,16 @@ public enum FSMState
 {
     Idle,
     Alarmed,
+    GoCover,
+    InCover,
     Fight
 }
 
 public enum MovementState
 {
     Idle,
-    Moving
+    Moving,
+    Positioning
 }
 
 public class Director

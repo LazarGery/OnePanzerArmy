@@ -6050,6 +6050,16 @@ MonoBehaviour:
   BulletPoolMaxLimit: 20
   BorderTilemap: {fileID: 2058806511}
   BuildingsTilemap: {fileID: 1125268670}
+  BuildingsLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  UnitsLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  FieldOffsetX: 0.5
+  FieldOffsetY: 0.5
+  Cover_SafeDistance: 4
+  Cover_MaxDistance: 20
 --- !u!4 &1956436807 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7926665593263123563, guid: 916bee98b17fca645996dca1cbd7eafe,
@@ -10026,6 +10036,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2737564705857182232, guid: e36e110dfe4cd4549994d9859a2dc27d,
+        type: 3}
+      propertyPath: HitPoints
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 2737564706420705663, guid: e36e110dfe4cd4549994d9859a2dc27d,
         type: 3}
       propertyPath: m_Layer
@@ -10070,6 +10085,11 @@ PrefabInstance:
       propertyPath: FieldOffsetY
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 7926665593263123556, guid: 916bee98b17fca645996dca1cbd7eafe,
+        type: 3}
+      propertyPath: PositioningSpeed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7926665593263123562, guid: 916bee98b17fca645996dca1cbd7eafe,
         type: 3}
       propertyPath: m_Name
@@ -10083,12 +10103,12 @@ PrefabInstance:
     - target: {fileID: 7926665593263123563, guid: 916bee98b17fca645996dca1cbd7eafe,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7926665593263123563, guid: 916bee98b17fca645996dca1cbd7eafe,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7926665593263123563, guid: 916bee98b17fca645996dca1cbd7eafe,
         type: 3}
@@ -10134,6 +10154,51 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7926665594228234103, guid: 916bee98b17fca645996dca1cbd7eafe,
+        type: 3}
+      propertyPath: CoverCheckTimer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7926665594228234103, guid: 916bee98b17fca645996dca1cbd7eafe,
+        type: 3}
+      propertyPath: EnemyModelWidth
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7926665594228234103, guid: 916bee98b17fca645996dca1cbd7eafe,
+        type: 3}
+      propertyPath: EnemyModelHeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7926665594228234103, guid: 916bee98b17fca645996dca1cbd7eafe,
+        type: 3}
+      propertyPath: PlayerModelWidth
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7926665594228234103, guid: 916bee98b17fca645996dca1cbd7eafe,
+        type: 3}
+      propertyPath: PositioningTimer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7926665594228234103, guid: 916bee98b17fca645996dca1cbd7eafe,
+        type: 3}
+      propertyPath: CoverRequestTimer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7926665594228234103, guid: 916bee98b17fca645996dca1cbd7eafe,
+        type: 3}
+      propertyPath: PlayerModelHeight
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7926665594228234103, guid: 916bee98b17fca645996dca1cbd7eafe,
+        type: 3}
+      propertyPath: PlayerModelRadius
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7926665594228234103, guid: 916bee98b17fca645996dca1cbd7eafe,
+        type: 3}
+      propertyPath: AimDistanceBuildings
+      value: 0.05
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 916bee98b17fca645996dca1cbd7eafe, type: 3}

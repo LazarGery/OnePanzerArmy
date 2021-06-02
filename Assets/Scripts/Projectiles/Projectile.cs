@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
@@ -37,8 +38,18 @@ public class Projectile : MonoBehaviour
     [SerializeField]
     private GameObject Explosion;
 
+    [SerializeField]
+    private float EstimationTimer;
+
+    [SerializeField]
+    private float EstimationDistance;
+
     float _ExplosionTimer;
+    float _EstimationTimer;
     GameObject _Explosion;
+    Vector3 _Destination;
+
+    List<EnemyTurret> _Targets;
     
     // When the enemies don't know the players location then they won't shoot projectiles randomly
     // Thus if any enemy unit gets hit by a projectile that means they can track down the player by it
@@ -55,6 +66,8 @@ public class Projectile : MonoBehaviour
         _Explosion = Instantiate(Explosion, transform);
         _Explosion.transform.localScale = new Vector3(ExplosionScale, ExplosionScale, 1);
         _StartingPosition = transform.position;
+        _Targets = new List<EnemyTurret>();
+        _EstimationTimer = EstimationTimer;
     }
 
     // Activates when the bullet is reused by another unit and sets the necessary values to default
@@ -62,8 +75,11 @@ public class Projectile : MonoBehaviour
     {
         GetComponent<Renderer>().enabled = true;
         _StartingPosition = transform.position;
+        _Destination = transform.position + (transform.rotation * Vector3.up * BulletSpeed * ExplosionTimer);
+        _EstimationTimer = EstimationTimer;
         _ExplosionTimer = 0;
         _isExploded = false;
+        _Targets.Clear();
     }
 
     // Update is called once per frame
@@ -73,19 +89,50 @@ public class Projectile : MonoBehaviour
     {
         if (!_isExploded)
         {
-            _ExplosionTimer += Time.deltaTime;
-            if (_ExplosionTimer < ExplosionTimer)
+            if (_ExplosionTimer > ExplosionTimer)
             {
-                transform.Translate(Vector2.up * BulletSpeed * Time.deltaTime);
+                Explode();
             }
             else
             {
-                Explode();
+                transform.Translate(Vector2.up * BulletSpeed * Time.deltaTime);
+                if (_EstimationTimer > EstimationTimer)
+                {
+                    RaycastHit2D[] obstacles = Physics2D.RaycastAll(transform.position, _Destination, EstimationDistance);
+                    int index = 0;
+                    while (index < obstacles.Length)
+                    {
+                        if (obstacles[index].collider.gameObject.CompareTag("Buildings"))
+                        {
+                            index = obstacles.Length;
+                        }
+                        else if (obstacles[index].collider.gameObject.CompareTag("Enemy"))
+                        {
+                            EnemyTurret actual = obstacles[index].collider.gameObject.GetComponentInChildren<EnemyTurret>();
+                            if (!_Targets.Contains(actual))
+                            {
+                                _Targets.Add(actual);
+                            }
+                            actual.IncomingBullet(this);
+                        }
+                        index += 1;
+                    }
+                    _EstimationTimer = 0;
+                }
             }
         }
         else if (!_Explosion.activeSelf)
         {
             GameController.Instance.BulletPool.ReturnProjectile(gameObject);
+        }
+    }
+
+    private void LateUpdate()
+    {
+        if (!_isExploded)
+        {
+            _ExplosionTimer += Time.deltaTime;
+            _EstimationTimer += Time.deltaTime;
         }
     }
 
@@ -109,6 +156,14 @@ public class Projectile : MonoBehaviour
         GetComponent<Renderer>().enabled = false;
         _Explosion.SetActive(true);
         _isExploded = true;
+
+        int index = _Targets.Count - 1;
+        while (index >= 0)
+        {
+            _Targets[index].IncomingBulletExploded(this);
+            _Targets.RemoveAt(index);
+            index -= 1;
+        }
     }
 
     // When the Projectile collides with (only handles colliders before explosion):
